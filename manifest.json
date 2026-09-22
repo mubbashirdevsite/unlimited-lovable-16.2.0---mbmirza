@@ -1,0 +1,127 @@
+{
+  "manifest_version": 3,
+  "name": "Mirza-Lovable",
+  "version": "2.0",
+  "description": "Mirza-Lovable — Supercharge your Lovable workflow with AI-powered tools, automation, and productivity features.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsXepehT84zucgNSTk376jXATV0uGaZ1s8Z4Fou7ZgsX5Rh9qR1a0G92BBINGCKjEnQC1pjn2TYb+S211ZTewZwtZBEnnW3iOP8MmiR88YIvb9MnaKCJkCrVSbzI+svtjL2rd3APMSvjQoOVGVY0RAnEKURjkeqN+RYT9Ie9l877unIrbaV3I2YdC1HiIB+LWApo37lzurR4iOw5J5R8BzNqgv0gSwFgd3LAkWjL2+/ONER9t6fIH2OwqNmbC6xRB0ARptRtxxnRcw7ESfqUNfuT1dh/O7ZwimDGa+9L8tlhQLsmr8vRJGWW/UQVQqCpiSHgaTIn47Whf4Rh3d8d09QIDAQAB",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs",
+    "cookies",
+    "identity",
+    "alarms",
+    "notifications",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "https://*.lovable.dev/*",
+    "https://api.lovable.dev/*",
+    "https://lovable.dev/*",
+    "https://lovable-api.com/*",
+    "https://*.lovable.app/*",
+    "https://lovax.net/*",
+    "https://www.lovax.net/*"
+  ],
+  "action": {
+    "default_title": "Mirza-Lovable",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "32": "assets/icon32.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.lovable.dev/*",
+        "https://lovable.dev/*"
+      ],
+      "js": ["pageHook.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://*.lovable.dev/*",
+        "https://lovable.dev/*",
+        "https://api.lovable.dev/*"
+      ],
+      "js": [
+        "safe-messaging.js",
+        "extension-config.js",
+        "content-bridge.js",
+        "mobile-launcher.js"
+      ],
+      "css": ["theme.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://*.lovable.dev/*",
+        "https://lovable.dev/*",
+        "https://*.lovable.app/*"
+      ],
+      "js": ["mandatory-overlay.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "security-hardening.js",
+        "pageHook.js",
+        "sidepanel.html",
+        "sidepanel.css",
+        "sidepanel.js",
+        "sidepanel-templates.js",
+        "sidepanel-lang.js",
+        "theme.css",
+        "i18n.js",
+        "safe-messaging.js",
+        "extension-config.js",
+        "remote-config.js",
+        "runtime-config.js",
+        "lovable-auth.js",
+        "lovable-feature-api.js",
+        "user-messages.js",
+        "jszip.min.js",
+        "hwFingerprint.js",
+        "sounds.js",
+        "sounds/error-payment.mp3",
+        "sounds/error-ratelimit.mp3",
+        "sounds/error-token.mp3",
+        "assets/logo-master-lovable.png",
+        "assets/logo-master-lovable-square.png",
+        "assets/icon16.png",
+        "assets/icon32.png",
+        "assets/icon48.png",
+        "assets/icon128.png"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "16": "assets/icon16.png",
+    "32": "assets/icon32.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "externally_connectable": {
+    "matches": [
+      "https://lovax.net/*",
+      "https://www.lovax.net/*",
+      "https://lovax.lovable.app/*",
+      "https://*.lovable.app/*"
+    ]
+  }
+}
